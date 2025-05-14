@@ -8,19 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		873EAD2F2DD43F2A00B97866 /* FakeStoreCore in Frameworks */ = {isa = PBXBuildFile; productRef = 873EAD2E2DD43F2A00B97866 /* FakeStoreCore */; };
+		873EAD362DD440D400B97866 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873EAD332DD440D400B97866 /* HomeView.swift */; };
+		873EAD372DD440D400B97866 /* FakeStore_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873EAD342DD440D400B97866 /* FakeStore_SwiftUIApp.swift */; };
+		873EAD382DD440D400B97866 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 873EAD302DD440D400B97866 /* Preview Assets.xcassets */; };
+		873EAD392DD440D400B97866 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 873EAD322DD440D400B97866 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		873EAD1C2DD2F5A900B97866 /* FakeStore-SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FakeStore-SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		873EAD302DD440D400B97866 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		873EAD322DD440D400B97866 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		873EAD332DD440D400B97866 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		873EAD342DD440D400B97866 /* FakeStore_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeStore_SwiftUIApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		873EAD1E2DD2F5A900B97866 /* FakeStore-SwiftUI */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "FakeStore-SwiftUI";
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		873EAD192DD2F5A900B97866 /* Frameworks */ = {
@@ -37,7 +37,7 @@
 		873EAD132DD2F5A900B97866 = {
 			isa = PBXGroup;
 			children = (
-				873EAD1E2DD2F5A900B97866 /* FakeStore-SwiftUI */,
+				873EAD352DD440D400B97866 /* FakeStore-SwiftUI */,
 				873EAD1D2DD2F5A900B97866 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,6 +48,57 @@
 				873EAD1C2DD2F5A900B97866 /* FakeStore-SwiftUI.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		873EAD312DD440D400B97866 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				873EAD302DD440D400B97866 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		873EAD352DD440D400B97866 /* FakeStore-SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				873EAD322DD440D400B97866 /* Assets.xcassets */,
+				873EAD3B2DD440E900B97866 /* App */,
+				873EAD3A2DD440DF00B97866 /* Views */,
+				873EAD312DD440D400B97866 /* Preview Content */,
+			);
+			path = "FakeStore-SwiftUI";
+			sourceTree = "<group>";
+		};
+		873EAD3A2DD440DF00B97866 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				873EAD3C2DD440FD00B97866 /* Home */,
+				873EAD3D2DD4410C00B97866 /* Product Details */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		873EAD3B2DD440E900B97866 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				873EAD342DD440D400B97866 /* FakeStore_SwiftUIApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		873EAD3C2DD440FD00B97866 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				873EAD332DD440D400B97866 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		873EAD3D2DD4410C00B97866 /* Product Details */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Product Details";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -64,9 +115,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				873EAD1E2DD2F5A900B97866 /* FakeStore-SwiftUI */,
 			);
 			name = "FakeStore-SwiftUI";
 			packageProductDependencies = (
@@ -118,6 +166,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				873EAD382DD440D400B97866 /* Preview Assets.xcassets in Resources */,
+				873EAD392DD440D400B97866 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +178,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				873EAD362DD440D400B97866 /* HomeView.swift in Sources */,
+				873EAD372DD440D400B97866 /* FakeStore_SwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
