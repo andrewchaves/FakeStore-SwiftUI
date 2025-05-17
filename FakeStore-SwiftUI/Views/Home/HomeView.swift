@@ -17,6 +17,15 @@ struct HomeView: View {
                     ProductRowView(product: product)
                 }
             }
+            .navigationTitle("FakeStore")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Image(systemName: "cart")
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Image(systemName: "line.3.horizontal")
+                }
+            }
         }
         .onAppear {
             productsViewModel.fetchProducts()
