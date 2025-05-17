@@ -6,16 +6,21 @@
 //
 
 import SwiftUI
+import FakeStoreCore
 
 struct HomeView: View {
+    @StateObject private var productsViewModel = ProductVM()
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            List (productsViewModel.filteredProducts){ product in
+                NavigationLink (destination: ProductDetailsView(product: product)){
+                    ProductRowView(product: product)
+                }
+            }
         }
-        .padding()
+        .onAppear {
+            productsViewModel.fetchProducts()
+        }
     }
 }
 
