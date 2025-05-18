@@ -17,6 +17,7 @@ struct HomeView: View {
                     ProductRowView(product: product)
                 }
             }
+            .listStyle(.plain)
             .navigationTitle("FakeStore")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

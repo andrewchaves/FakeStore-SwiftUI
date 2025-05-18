@@ -13,7 +13,28 @@ struct ProductRowView: View {
     let product: ProductForUI
     
     var body: some View {
-        Text(product.title)
+        HStack (alignment: .top){
+            AsyncImage(url: URL(string: product.image)) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 60.0, height: 60.0)
+                    .cornerRadius(8.0)
+            } placeholder: {
+                ProgressView()
+                    .frame(width: 60.0, height: 60.0)
+            }
+            
+            VStack (alignment: .leading, spacing: 5.0){
+                Text(product.title)
+                    .font(.headline)
+                    .lineLimit(2)
+                Text(product.price)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+        }
+        .padding(.vertical, 4.0)
     }
 }
 
