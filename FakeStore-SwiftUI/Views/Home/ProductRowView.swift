@@ -14,16 +14,19 @@ struct ProductRowView: View {
     
     var body: some View {
         HStack (alignment: .top){
-            AsyncImage(url: URL(string: product.image)) { image in
-                image
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60.0, height: 60.0)
-                    .cornerRadius(8.0)
-            } placeholder: {
-                ProgressView()
-                    .frame(width: 60.0, height: 60.0)
-            }
+            AsyncImage(
+                url: URL(string: product.image),
+                content: { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60.0, height: 60.0)
+                        .cornerRadius(8.0)
+                }, placeholder: {
+                    ProgressView()
+                        .frame(width: 60.0, height: 60.0)
+                }
+            )
             
             VStack (alignment: .leading, spacing: 5.0){
                 Text(product.title)
@@ -40,10 +43,10 @@ struct ProductRowView: View {
 
 #Preview {
     let mockProduct = ProductForUI(id: 1,
-                 title: "Sample Product",
-                 price: "$189,00",
-                 description: "A sample product which has no porpuse beyond have some mocked data to validate the UI i am developing. So long and thanks for all the fishes",
-                 image: "",
-                 category: "Sample")
+                                   title: "Sample Product",
+                                   price: "$189,00",
+                                   description: "A sample product which has no porpuse beyond have some mocked data to validate the UI i am developing. So long and thanks for all the fishes",
+                                   image: "",
+                                   category: "Sample")
     ProductRowView(product: mockProduct)
 }
