@@ -37,6 +37,22 @@ struct ProductDetailsView: View {
                     .foregroundColor(.secondary)
                 Text(product.description)
                     .font(.body)
+                Spacer()
+                GeometryReader { geometry in
+                    let availableWidth = geometry.size.width - 16
+                    HStack(spacing: 8.0) {
+                        GeneralButton(title: "Add to cart", backgroundColor: .blue) {
+                            print("Add to cart")
+                        }
+                        .frame(width: availableWidth * 1/3)
+                        GeneralButton(title: "Add to cart", backgroundColor: .green) {
+                            print("Buy it now!")
+                        }
+                        .frame(width: availableWidth * 2/3)
+                    }
+                    .padding(.horizontal, 8.0)
+                }
+                .frame(height: 60.0)
             }
             .navigationTitle("Product Details")
             .navigationBarTitleDisplayMode(.inline)
