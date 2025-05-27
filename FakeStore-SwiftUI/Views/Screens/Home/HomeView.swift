@@ -13,7 +13,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             List (productsViewModel.filteredProducts){ product in
-                NavigationLink (destination: ProductDetailsView(product: product)){
+                NavigationLink (destination: ProductDetailsView(product: product, cartItemViewModel: CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository))){
                     ProductRowView(product: product)
                 }
             }

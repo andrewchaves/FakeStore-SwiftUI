@@ -8,9 +8,16 @@
 import SwiftUI
 import FakeStoreCore
 
-struct ProductDetailsView: View {
+
+struct ProductDetailsView<ViewModel: CartItemViewModelProtocol & ObservableObject>: View {
     
     let product: ProductForUI
+    @ObservedObject var cartItemViewModel: ViewModel
+    
+    init(product: ProductForUI, cartItemViewModel: ViewModel) {
+        self.product = product
+        self.cartItemViewModel = cartItemViewModel
+    }
     
     var body: some View {
         ScrollView {
@@ -42,7 +49,7 @@ struct ProductDetailsView: View {
                     let availableWidth = geometry.size.width - 16
                     HStack(spacing: 8.0) {
                         GeneralButton(title: "Add to cart", backgroundColor: .blue) {
-                            print("Add to cart")
+                            cartItemViewModel.addProduct(product)
                         }
                         .frame(width: availableWidth * 1/3)
                         GeneralButton(title: "Add to cart", backgroundColor: .green) {
@@ -72,5 +79,5 @@ struct ProductDetailsView: View {
                                    description: "A sample product which has no porpuse beyond have some mocked data to validate the UI i am developing. So long and thanks for all the fishes",
                                    image: "",
                                    category: "Sample")
-    ProductDetailsView(product: mockProduct)
+    ProductDetailsView(product: mockProduct, cartItemViewModel: CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository))
 }
