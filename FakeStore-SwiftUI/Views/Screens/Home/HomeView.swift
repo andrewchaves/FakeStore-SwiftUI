@@ -21,7 +21,12 @@ struct HomeView: View {
             .navigationTitle("FakeStore")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Image(systemName: "cart")
+                    Button(action: {
+                        print("Toolbar button clicked!")
+                    }) {
+                        Image(systemName: "cart")
+                            .foregroundColor(.black)
+                    }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Image(systemName: "line.3.horizontal")
