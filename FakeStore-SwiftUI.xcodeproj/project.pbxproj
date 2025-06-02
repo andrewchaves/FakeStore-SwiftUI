@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		870A536A2DEBFAC20072F5EE /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870A53692DEBFAC20072F5EE /* CartView.swift */; };
+		870A536C2DED41220072F5EE /* CartItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870A536B2DED41220072F5EE /* CartItemRow.swift */; };
 		873EAD2F2DD43F2A00B97866 /* FakeStoreCore in Frameworks */ = {isa = PBXBuildFile; productRef = 873EAD2E2DD43F2A00B97866 /* FakeStoreCore */; };
 		873EAD362DD440D400B97866 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873EAD332DD440D400B97866 /* HomeView.swift */; };
 		873EAD372DD440D400B97866 /* FakeStore_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873EAD342DD440D400B97866 /* FakeStore_SwiftUIApp.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		870A53692DEBFAC20072F5EE /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		870A536B2DED41220072F5EE /* CartItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemRow.swift; sourceTree = "<group>"; };
 		873EAD1C2DD2F5A900B97866 /* FakeStore-SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FakeStore-SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		873EAD302DD440D400B97866 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		873EAD322DD440D400B97866 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 			isa = PBXGroup;
 			children = (
 				870A53692DEBFAC20072F5EE /* CartView.swift */,
+				870A536B2DED41220072F5EE /* CartItemRow.swift */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				870A536C2DED41220072F5EE /* CartItemRow.swift in Sources */,
 				870A536A2DEBFAC20072F5EE /* CartView.swift in Sources */,
 				873EAD362DD440D400B97866 /* HomeView.swift in Sources */,
 				873EAD372DD440D400B97866 /* FakeStore_SwiftUIApp.swift in Sources */,
