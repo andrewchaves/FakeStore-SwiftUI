@@ -18,7 +18,7 @@ struct CartView<ViewModel: CartItemViewModelProtocol & ObservableObject>: View {
     var body: some View {
         NavigationView {
             List (carItensViewModel.cartItems){ cartItem in
-                //TODO: - Create Row
+                CartItemRow(cartItem: cartItem)
             }
             .listStyle(.plain)
             .navigationTitle("FakeStore")
