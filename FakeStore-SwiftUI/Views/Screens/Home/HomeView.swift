@@ -21,9 +21,9 @@ struct HomeView: View {
             .navigationTitle("FakeStore")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        print("Toolbar button clicked!")
-                    }) {
+                    
+                    NavigationLink(destination: CartView(cartItensViewModel:
+                                                            CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository))) {
                         Image(systemName: "cart")
                             .foregroundColor(.black)
                     }
