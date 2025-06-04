@@ -9,7 +9,11 @@ import SwiftUI
 import FakeStoreCore
 
 struct CartItemRow: View {
+    
+    @State var quantity: Int = 0
+    
     var cartItem: CartItem
+    
     var body: some View {
         HStack (alignment: .top){
             AsyncImage(
@@ -34,8 +38,39 @@ struct CartItemRow: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
+            
+            HStack(spacing: 24) {
+                        Button(action: {
+                            if quantity > 0 {
+                                quantity -= 1
+                            }
+                        }) {
+                            Image(systemName: "minus")
+                                .foregroundColor(.white)
+                                .frame(width: 40, height: 40)
+                                .background(Color.blue)
+                                .clipShape(Circle())
+                        }
+
+                        Text("\(quantity)")
+                            .font(.title2)
+                            .foregroundColor(.gray)
+
+                        Button(action: {
+                            quantity += 1
+                        }) {
+                            Image(systemName: "plus")
+                                .foregroundColor(.white)
+                                .frame(width: 40, height: 40)
+                                .background(Color.blue)
+                                .clipShape(Circle())
+                        }
+                    }
         }
         .padding(.vertical, 4.0)
+        .onAppear {
+            quantity = 0
+        }
     }
 }
 
