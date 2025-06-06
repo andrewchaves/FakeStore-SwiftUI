@@ -8,11 +8,10 @@
 import SwiftUI
 import FakeStoreCore
 
-struct CartItemRow: View {
+struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: View {
     
-    @State var quantity: Int = 0
-    
-    var cartItem: CartItem
+    @ObservedObject var cartItem: CartItem
+    var cartItemViewModel: ViewModel
     
     var body: some View {
         HStack (alignment: .top){
@@ -48,9 +47,7 @@ struct CartItemRow: View {
                 Spacer()
                 HStack(spacing: 24) {
                     Button(action: {
-                        if quantity > 0 {
-                            quantity -= 1
-                        }
+                        cartItemViewModel.decreaseCartItemQuantity(for: cartItem.id)
                     }) {
                         Image(systemName: "minus")
                             .foregroundColor(.white)
@@ -59,12 +56,12 @@ struct CartItemRow: View {
                             .clipShape(Circle())
                     }
                     
-                    Text("\(quantity)")
+                    Text("\(cartItem.quantity)")
                         .font(.title2)
                         .foregroundColor(.gray)
                     
                     Button(action: {
-                        quantity += 1
+                        cartItemViewModel.increaseCartItemQuantity(for: cartItem.id)
                     }) {
                         Image(systemName: "plus")
                             .foregroundColor(.white)
@@ -82,8 +79,9 @@ struct CartItemRow: View {
 }
 
 #Preview {
-    let cartItemVM = CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository)
-    if cartItemVM.cartItems.count > 0 {
-        CartItemRow(cartItem: cartItemVM.cartItems[0])
-    }
+//TODO: - Refactor preview
+//    let cartItemVM = CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository)
+//    if cartItemVM.cartItems.count > 0 {
+//        CartItemRow(cartItem: cartItemVM.cartItems[0])
+//    }
 }
