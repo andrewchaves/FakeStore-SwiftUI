@@ -16,6 +16,7 @@ struct CartItemRow: View {
     
     var body: some View {
         HStack (alignment: .top){
+            // Product Image
             AsyncImage(
                 url: URL(string: cartItem.image ?? ""),
                 content: { image in
@@ -30,6 +31,7 @@ struct CartItemRow: View {
                 }
             )
             
+            // Product name and price
             VStack (alignment: .leading, spacing: 5.0){
                 Text(cartItem.name ?? "")
                     .font(.headline)
@@ -37,40 +39,45 @@ struct CartItemRow: View {
                 Text("$\(cartItem.price)") //TODO: - Make the real processing of price.
                     .font(.subheadline)
                     .foregroundColor(.gray)
+                Spacer()
             }
             
-            HStack(spacing: 24) {
-                        Button(action: {
-                            if quantity > 0 {
-                                quantity -= 1
-                            }
-                        }) {
-                            Image(systemName: "minus")
-                                .foregroundColor(.white)
-                                .frame(width: 40, height: 40)
-                                .background(Color.blue)
-                                .clipShape(Circle())
+            Spacer()
+            // Quantity up and down component
+            VStack {
+                Spacer()
+                HStack(spacing: 24) {
+                    Button(action: {
+                        if quantity > 0 {
+                            quantity -= 1
                         }
-
-                        Text("\(quantity)")
-                            .font(.title2)
-                            .foregroundColor(.gray)
-
-                        Button(action: {
-                            quantity += 1
-                        }) {
-                            Image(systemName: "plus")
-                                .foregroundColor(.white)
-                                .frame(width: 40, height: 40)
-                                .background(Color.blue)
-                                .clipShape(Circle())
-                        }
+                    }) {
+                        Image(systemName: "minus")
+                            .foregroundColor(.white)
+                            .frame(width: 20, height: 20)
+                            .background(Color.blue)
+                            .clipShape(Circle())
                     }
+                    
+                    Text("\(quantity)")
+                        .font(.title2)
+                        .foregroundColor(.gray)
+                    
+                    Button(action: {
+                        quantity += 1
+                    }) {
+                        Image(systemName: "plus")
+                            .foregroundColor(.white)
+                            .frame(width: 20, height: 20)
+                            .background(Color.blue)
+                            .clipShape(Circle())
+                    }
+                }
+                .padding(.trailing, 4.0)
+                .padding(.bottom, 4.0)
+            }
         }
         .padding(.vertical, 4.0)
-        .onAppear {
-            quantity = 0
-        }
     }
 }
 
