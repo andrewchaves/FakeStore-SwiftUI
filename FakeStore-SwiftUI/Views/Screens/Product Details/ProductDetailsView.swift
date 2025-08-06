@@ -21,6 +21,7 @@ struct ProductDetailsView<ViewModel: CartItemViewModelProtocol & ObservableObjec
     
     var body: some View {
         ScrollView {
+            
             VStack (alignment: .leading, spacing: 16.0) {
                 AsyncImage(
                     url: URL(string: product.image),
@@ -34,7 +35,7 @@ struct ProductDetailsView<ViewModel: CartItemViewModelProtocol & ObservableObjec
                         ProgressView()
                             .frame(maxWidth: .infinity)
                     }
-                )
+                )//: AsyncImage
                 
                 Text(product.title)
                     .font(.title)
@@ -44,7 +45,9 @@ struct ProductDetailsView<ViewModel: CartItemViewModelProtocol & ObservableObjec
                     .foregroundColor(.secondary)
                 Text(product.description)
                     .font(.body)
+                
                 Spacer()
+                
                 GeometryReader { geometry in
                     let availableWidth = geometry.size.width - 16
                     HStack(spacing: 8.0) {
@@ -52,22 +55,26 @@ struct ProductDetailsView<ViewModel: CartItemViewModelProtocol & ObservableObjec
                             cartItemViewModel.addProduct(product)
                         }
                         .frame(width: availableWidth * 1/3)
-                        GeneralButton(title: "Add to cart", backgroundColor: .green) {
+                        GeneralButton(title: "Buy it Now!", backgroundColor: .green) {
                             print("Buy it now!")
                         }
                         .frame(width: availableWidth * 2/3)
                     }
                     .padding(.horizontal, 8.0)
-                }
+                }//: GeometryReader
                 .frame(height: 60.0)
             }
             .navigationTitle("Product Details")
             .navigationBarTitleDisplayMode(.inline)
-        }
+        }//: VStack
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Image(systemName: "cart")
-            }
+                NavigationLink(destination: CartView(cartItensViewModel:
+                                                        CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository))) {
+                    Image(systemName: "cart")
+                        .foregroundColor(.black)
+                }
+            }//: ToolbarItem
         }
     }
 }
