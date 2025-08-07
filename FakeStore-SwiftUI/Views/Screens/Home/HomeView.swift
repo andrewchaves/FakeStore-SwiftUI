@@ -20,17 +20,35 @@ struct HomeView: View {
             .listStyle(.plain)
             .navigationTitle("FakeStore")
             .toolbar {
+                
+                //Cart Button
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    
                     NavigationLink(destination: CartView(cartItensViewModel:
                                                             CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository))) {
                         Image(systemName: "cart")
                             .foregroundColor(.black)
                     }
-                }
+                }//: ToolbarItem
+                
+                //Filter Button
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Image(systemName: "line.3.horizontal")
-                }
+                    Menu {
+                        Button {
+                            print("All Products")
+                        } label: {
+                            Label("All Products", systemImage: "line.3.horizontal")
+                        }
+                        
+                        Button {
+                            print("Roupas")
+                        } label: {
+                            Label("Roupas", systemImage: "line.3.horizontal")
+                        }
+                    } label: {
+                        Image(systemName: "line.3.horizontal")
+                            .foregroundColor(.black)
+                    }
+                }//: ToolbarItem
             }
         }
         .onAppear {
