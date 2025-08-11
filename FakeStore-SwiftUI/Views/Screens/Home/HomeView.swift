@@ -9,7 +9,10 @@ import SwiftUI
 import FakeStoreCore
 
 struct HomeView: View {
+    //Properties
     @StateObject private var productsViewModel = ProductVM()
+    @StateObject private var categoriesViewModel = CategorytVM()
+    
     var body: some View {
         NavigationView {
             List (productsViewModel.filteredProducts){ product in
@@ -33,16 +36,12 @@ struct HomeView: View {
                 //Filter Button
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
-                        Button {
-                            print("All Products")
-                        } label: {
-                            Label("All Products", systemImage: "line.3.horizontal")
-                        }
-                        
-                        Button {
-                            print("Roupas")
-                        } label: {
-                            Label("Roupas", systemImage: "line.3.horizontal")
+                        ForEach(categoriesViewModel.categories, id: \.name) { category in
+                            Button {
+                                print("\(category.name) clicked")
+                            } label: {
+                                Label(category.name, systemImage: "line.3.horizontal.decrease.circle")
+                            }
                         }
                     } label: {
                         Image(systemName: "line.3.horizontal")
@@ -53,6 +52,7 @@ struct HomeView: View {
         }
         .onAppear {
             productsViewModel.fetchProducts()
+            categoriesViewModel.fetchCategories()
         }
     }
 }
