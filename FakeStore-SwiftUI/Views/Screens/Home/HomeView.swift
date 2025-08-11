@@ -36,9 +36,16 @@ struct HomeView: View {
                 //Filter Button
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
+                        //Default
+                        Button {
+                            self.productsViewModel.filterProducts(category: nil)
+                        } label: {
+                            Label("All Products", systemImage: "line.3.horizontal.decrease.circle")
+                        }
+                        //Other items
                         ForEach(categoriesViewModel.categories, id: \.name) { category in
                             Button {
-                                print("\(category.name) clicked")
+                                self.productsViewModel.filterProducts(category: category.name)
                             } label: {
                                 Label(category.name, systemImage: "line.3.horizontal.decrease.circle")
                             }
