@@ -20,62 +20,68 @@ struct ProductDetailsView<ViewModel: CartItemViewModelProtocol & ObservableObjec
     }
     
     var body: some View {
-        ScrollView {
-            
-            VStack (alignment: .leading, spacing: 16.0) {
-                AsyncImage(
-                    url: URL(string: product.image),
-                    content: { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .cornerRadius(12.0)
-                    },
-                    placeholder: {
-                        ProgressView()
-                            .frame(maxWidth: .infinity)
-                    }
-                )//: AsyncImage
+        if #available(iOS 16.0, *) {
+            ScrollView {
                 
-                Text(product.title)
-                    .font(.title)
-                    .bold()
-                Text(product.price)
-                    .font(.title2)
-                    .foregroundColor(.secondary)
-                Text(product.description)
-                    .font(.body)
-                
-                Spacer()
-                
-                GeometryReader { geometry in
-                    let availableWidth = geometry.size.width - 16
-                    HStack(spacing: 8.0) {
-                        GeneralButton(title: "Add to cart", backgroundColor: .blue) {
-                            cartItemViewModel.addProduct(product)
+                VStack (alignment: .leading, spacing: 16.0) {
+                    AsyncImage(
+                        url: URL(string: product.image),
+                        content: { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .cornerRadius(12.0)
+                        },
+                        placeholder: {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
                         }
-                        .frame(width: availableWidth * 1/3)
-                        GeneralButton(title: "Buy it Now!", backgroundColor: .green) {
-                            print("Buy it now!")
+                    )//: AsyncImage
+                    
+                    Text(product.title)
+                        .font(.title)
+                        .bold()
+                    Text(product.price)
+                        .font(.title2)
+                        .foregroundColor(.secondary)
+                    Text(product.description)
+                        .font(.body)
+                    
+                    Spacer()
+                    
+                    GeometryReader { geometry in
+                        let availableWidth = geometry.size.width - 16
+                        HStack(spacing: 8.0) {
+                            GeneralButton(title: "Add to cart", backgroundColor: .blue) {
+                                cartItemViewModel.addProduct(product)
+                            }
+                            .frame(width: availableWidth * 2/5)
+                            GeneralButton(title: "Buy it Now!", backgroundColor: .green) {
+                                print("Buy it now!")
+                            }
+                            .frame(width: availableWidth * 3/5)
                         }
-                        .frame(width: availableWidth * 2/3)
+                        .padding(.horizontal, 8.0)
+                    }//: GeometryReader
+                    .frame(height: 60.0)
+                }//: VStack
+                .navigationTitle("Product Details")
+                .navigationBarTitleDisplayMode(.inline)
+            }//: ScrollView
+            .padding()
+            .scrollIndicators(.hidden)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: CartView(cartItensViewModel:
+                                                            CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository))) {
+                        Image(systemName: "cart")
+                            .foregroundColor(.black)
                     }
-                    .padding(.horizontal, 8.0)
-                }//: GeometryReader
-                .frame(height: 60.0)
+                }//: ToolbarItem
             }
-            .navigationTitle("Product Details")
-            .navigationBarTitleDisplayMode(.inline)
-        }//: VStack
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: CartView(cartItensViewModel:
-                                                        CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository))) {
-                    Image(systemName: "cart")
-                        .foregroundColor(.black)
-                }
-            }//: ToolbarItem
-        }
+        } else {
+            // Fallback on earlier versions
+        }//: toolbar
     }
 }
 
