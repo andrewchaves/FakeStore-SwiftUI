@@ -10,14 +10,22 @@ import FakeStoreCore
 
 struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: View {
     
-    @ObservedObject var cartItem: CartItem
-    var cartItemViewModel: ViewModel
+    //@ObservedObject var cartItem: CartItem
+    var cartItemId: Int64
+    var cartItemIdx: Int
+    @ObservedObject var cartItemsViewModel: ViewModel
+    
+    init(cartItemId: Int64, cartItemsViewModel: ViewModel) {
+        self.cartItemsViewModel = cartItemsViewModel
+        self.cartItemId = cartItemId
+        cartItemIdx = cartItemsViewModel.cartItems.firstIndex(where: { $0.id ==  self.cartItemId})!
+    }
     
     var body: some View {
         HStack (alignment: .top){
             // Product Image
             AsyncImage(
-                url: URL(string: cartItem.image ?? ""),
+                url: URL(string: cartItemsViewModel.cartItems[cartItemIdx].image ?? ""),
                 content: { image in
                     image
                         .resizable()
@@ -32,10 +40,10 @@ struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: Vie
             
             // Product name and price
             VStack (alignment: .leading, spacing: 5.0){
-                Text(cartItem.name ?? "")
+                Text(cartItemsViewModel.cartItems[cartItemIdx].name ?? "")
                     .font(.headline)
                     .lineLimit(2)
-                Text("$\(cartItem.price)") //TODO: - Make the real processing of price.
+                Text("$\(cartItemsViewModel.cartItems[cartItemIdx].price)") //TODO: - Make the real processing of price.
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 Spacer()
@@ -46,8 +54,10 @@ struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: Vie
             VStack {
                 Spacer()
                 HStack(spacing: 24) {
+                    
+                    //Minus button
                     Button(action: {
-                        cartItemViewModel.decreaseCartItemQuantity(for: cartItem.id)
+                        cartItemsViewModel.decreaseCartItemQuantity(for: cartItemsViewModel.cartItems[cartItemIdx].id)
                     }) {
                         Image(systemName: "minus")
                             .foregroundColor(.white)
@@ -56,12 +66,14 @@ struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: Vie
                             .clipShape(Circle())
                     }
                     
-                    Text("\(cartItem.quantity)")
+                    //Quantity text
+                    Text("\(cartItemsViewModel.cartItems[cartItemIdx].quantity)")
                         .font(.title2)
                         .foregroundColor(.gray)
                     
+                    //Plus Button
                     Button(action: {
-                        cartItemViewModel.increaseCartItemQuantity(for: cartItem.id)
+                        cartItemsViewModel.increaseCartItemQuantity(for: cartItemsViewModel.cartItems[cartItemIdx].id)
                     }) {
                         Image(systemName: "plus")
                             .foregroundColor(.white)
@@ -72,7 +84,7 @@ struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: Vie
                 }
                 .padding(.trailing, 4.0)
                 .padding(.bottom, 4.0)
-            }
+            }//: VStack
         }
         .padding(.vertical, 4.0)
     }
