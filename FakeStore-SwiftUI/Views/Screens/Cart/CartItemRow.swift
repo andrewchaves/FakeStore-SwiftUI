@@ -18,7 +18,7 @@ struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: Vie
     init(cartItemId: Int64, cartItemsViewModel: ViewModel) {
         self.cartItemsViewModel = cartItemsViewModel
         self.cartItemId = cartItemId
-        cartItemIdx = cartItemsViewModel.cartItems.firstIndex(where: { $0.id ==  self.cartItemId})!
+        self.cartItemIdx = cartItemsViewModel.cartItems.firstIndex(where: { $0.id == cartItemId})!
     }
     
     var body: some View {
