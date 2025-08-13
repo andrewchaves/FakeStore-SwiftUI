@@ -10,22 +10,20 @@ import FakeStoreCore
 
 struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: View {
     
-    //@ObservedObject var cartItem: CartItem
     var cartItemId: Int64
-    var cartItemIdx: Int
+    @State var cartItemIdx: Int? = nil
     @ObservedObject var cartItemsViewModel: ViewModel
     
     init(cartItemId: Int64, cartItemsViewModel: ViewModel) {
         self.cartItemsViewModel = cartItemsViewModel
         self.cartItemId = cartItemId
-        self.cartItemIdx = cartItemsViewModel.cartItems.firstIndex(where: { $0.id == cartItemId})!
     }
     
     var body: some View {
         HStack (alignment: .top){
             // Product Image
             AsyncImage(
-                url: URL(string: cartItemsViewModel.cartItems[cartItemIdx].image ?? ""),
+                url: URL(string: cartItemsViewModel.cartItems[cartItemIdx ?? 0].image ?? ""),
                 content: { image in
                     image
                         .resizable()
@@ -40,10 +38,10 @@ struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: Vie
             
             // Product name and price
             VStack (alignment: .leading, spacing: 5.0){
-                Text(cartItemsViewModel.cartItems[cartItemIdx].name ?? "")
+                Text(cartItemsViewModel.cartItems[cartItemIdx ?? 0].name ?? "")
                     .font(.headline)
                     .lineLimit(2)
-                Text("$\(cartItemsViewModel.cartItems[cartItemIdx].price)") //TODO: - Make the real processing of price.
+                Text("$\(cartItemsViewModel.cartItems[cartItemIdx ?? 0].price)") //TODO: - Make the real processing of price.
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 Spacer()
@@ -57,7 +55,7 @@ struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: Vie
                     
                     //Minus button
                     Button(action: {
-                        cartItemsViewModel.decreaseCartItemQuantity(for: cartItemsViewModel.cartItems[cartItemIdx].id)
+                        cartItemsViewModel.decreaseCartItemQuantity(for: cartItemsViewModel.cartItems[cartItemIdx ?? 0].id)
                     }) {
                         Image(systemName: "minus")
                             .foregroundColor(.white)
@@ -67,13 +65,13 @@ struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: Vie
                     }
                     
                     //Quantity text
-                    Text("\(cartItemsViewModel.cartItems[cartItemIdx].quantity)")
+                    Text("\(cartItemsViewModel.cartItems[cartItemIdx ?? 0].quantity)")
                         .font(.title2)
                         .foregroundColor(.gray)
                     
                     //Plus Button
                     Button(action: {
-                        cartItemsViewModel.increaseCartItemQuantity(for: cartItemsViewModel.cartItems[cartItemIdx].id)
+                        cartItemsViewModel.increaseCartItemQuantity(for: cartItemsViewModel.cartItems[cartItemIdx ?? 0].id)
                     }) {
                         Image(systemName: "plus")
                             .foregroundColor(.white)
@@ -85,8 +83,11 @@ struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: Vie
                 .padding(.trailing, 4.0)
                 .padding(.bottom, 4.0)
             }//: VStack
-        }
+        }//: HStack
         .padding(.vertical, 4.0)
+        .onAppear {
+            self.cartItemIdx = cartItemsViewModel.cartItems.firstIndex(where: { $0.id == cartItemId})!
+        }
     }
 }
 

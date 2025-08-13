@@ -9,26 +9,26 @@ import SwiftUI
 import FakeStoreCore
 struct CartView<ViewModel: CartItemViewModelProtocol & ObservableObject>: View {
     
-    @ObservedObject private var carItensViewModel: ViewModel
+    @StateObject private var cartItemsViewModel: ViewModel
     
-    init(cartItensViewModel: ViewModel) {
-        self.carItensViewModel = cartItensViewModel
+    init(cartItemsViewModel: ViewModel) {
+        _cartItemsViewModel = StateObject(wrappedValue: cartItemsViewModel)
     }
     
     var body: some View {
         NavigationView {
-            List (carItensViewModel.cartItems){ cartItem in
-                CartItemRow(cartItemId: cartItem.id, cartItemsViewModel: carItensViewModel)
+            List (cartItemsViewModel.cartItems){ cartItem in
+                CartItemRow(cartItemId: cartItem.id, cartItemsViewModel: cartItemsViewModel)
             }
             .listStyle(.plain)
             .navigationTitle("FakeStore")
         }
         .onAppear {
-            carItensViewModel.fetchCartItems()
+            cartItemsViewModel.fetchCartItems()
         }
     }
 }
 
 #Preview {
-    CartView(cartItensViewModel: CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository))
+    CartView(cartItemsViewModel: CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository))
 }

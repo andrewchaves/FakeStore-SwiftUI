@@ -72,7 +72,7 @@ struct ProductDetailsView<ViewModel: CartItemViewModelProtocol & ObservableObjec
             .scrollIndicators(.hidden)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: CartView(cartItensViewModel:
+                    NavigationLink(destination: CartView(cartItemsViewModel:
                                                             CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository))) {
                         Image(systemName: "cart")
                             .foregroundColor(.black)
