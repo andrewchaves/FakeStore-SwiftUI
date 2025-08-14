@@ -17,8 +17,19 @@ struct CartView<ViewModel: CartItemViewModelProtocol & ObservableObject>: View {
     
     var body: some View {
         NavigationView {
-            List (cartItemsViewModel.cartItems){ cartItem in
-                CartItemRow(cartItemId: cartItem.id, cartItemsViewModel: cartItemsViewModel)
+            List {
+                ForEach(cartItemsViewModel.cartItems, id: \.self) { item in
+                    CartItemRow(
+                        cartItem: item,
+                        onIncrease: {
+                            cartItemsViewModel.increaseCartItemQuantity(for: item.id)
+                            cartItemsViewModel.fetchCartItems()},
+                        onDecrease: {
+                            cartItemsViewModel.decreaseCartItemQuantity(for: item.id)
+                            cartItemsViewModel.fetchCartItems()
+                        }
+                    )
+                }
             }
             .listStyle(.plain)
             .navigationTitle("FakeStore")

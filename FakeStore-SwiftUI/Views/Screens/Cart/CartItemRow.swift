@@ -8,22 +8,17 @@
 import SwiftUI
 import FakeStoreCore
 
-struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: View {
+struct CartItemRow: View {
     
-    var cartItemId: Int64
-    @State var cartItemIdx: Int? = nil
-    @ObservedObject var cartItemsViewModel: ViewModel
-    
-    init(cartItemId: Int64, cartItemsViewModel: ViewModel) {
-        self.cartItemsViewModel = cartItemsViewModel
-        self.cartItemId = cartItemId
-    }
+    let cartItem: CartItem
+    let onIncrease: () -> Void
+    let onDecrease: () -> Void
     
     var body: some View {
-        HStack (alignment: .top){
+        HStack {
             // Product Image
             AsyncImage(
-                url: URL(string: cartItemsViewModel.cartItems[cartItemIdx ?? 0].image ?? ""),
+                url: URL(string: cartItem.image ?? ""),
                 content: { image in
                     image
                         .resizable()
@@ -36,65 +31,37 @@ struct CartItemRow<ViewModel: CartItemViewModelProtocol & ObservableObject>: Vie
                 }
             )
             
-            // Product name and price
-            VStack (alignment: .leading, spacing: 5.0){
-                Text(cartItemsViewModel.cartItems[cartItemIdx ?? 0].name ?? "")
-                    .font(.headline)
-                    .lineLimit(2)
-                Text("$\(cartItemsViewModel.cartItems[cartItemIdx ?? 0].price)") //TODO: - Make the real processing of price.
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-            }
+            Spacer()
+            
+            Text(cartItem.name ?? "")
+                .font(.headline)
+                .lineLimit(1)
             
             Spacer()
-            // Quantity up and down component
-            VStack {
-                Spacer()
-                HStack(spacing: 24) {
-                    
-                    //Minus button
-                    Button(action: {
-                        cartItemsViewModel.decreaseCartItemQuantity(for: cartItemsViewModel.cartItems[cartItemIdx ?? 0].id)
-                    }) {
-                        Image(systemName: "minus")
-                            .foregroundColor(.white)
-                            .frame(width: 20, height: 20)
-                            .background(Color.blue)
-                            .clipShape(Circle())
-                    }
-                    
-                    //Quantity text
-                    Text("\(cartItemsViewModel.cartItems[cartItemIdx ?? 0].quantity)")
-                        .font(.title2)
-                        .foregroundColor(.gray)
-                    
-                    //Plus Button
-                    Button(action: {
-                        cartItemsViewModel.increaseCartItemQuantity(for: cartItemsViewModel.cartItems[cartItemIdx ?? 0].id)
-                    }) {
-                        Image(systemName: "plus")
-                            .foregroundColor(.white)
-                            .frame(width: 20, height: 20)
-                            .background(Color.blue)
-                            .clipShape(Circle())
-                    }
+            
+            HStack {
+                Button(action: onDecrease) {
+                    Image(systemName: "minus.circle")
                 }
-                .padding(.trailing, 4.0)
-                .padding(.bottom, 4.0)
-            }//: VStack
-        }//: HStack
-        .padding(.vertical, 4.0)
-        .onAppear {
-            self.cartItemIdx = cartItemsViewModel.cartItems.firstIndex(where: { $0.id == cartItemId})!
+                .buttonStyle(.borderless)
+                
+                Text("\(cartItem.quantity)")
+                    .frame(minWidth: 24)
+                
+                Button(action: onIncrease) {
+                    Image(systemName: "plus.circle")
+                }
+                .buttonStyle(.borderless)
+            }
         }
+        .padding(.vertical, 4)
     }
 }
 
 #Preview {
-//TODO: - Refactor preview
-//    let cartItemVM = CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository)
-//    if cartItemVM.cartItems.count > 0 {
-//        CartItemRow(cartItem: cartItemVM.cartItems[0])
-//    }
+    //TODO: - Refactor preview
+    //    let cartItemVM = CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository)
+    //    if cartItemVM.cartItems.count > 0 {
+    //        CartItemRow(cartItem: cartItemVM.cartItems[0])
+    //    }
 }
