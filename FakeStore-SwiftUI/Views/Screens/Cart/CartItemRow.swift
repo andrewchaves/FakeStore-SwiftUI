@@ -33,26 +33,45 @@ struct CartItemRow: View {
             
             Spacer()
             
-            Text(cartItem.name ?? "")
-                .font(.headline)
-                .lineLimit(1)
+            //Product Name and Price
+            VStack {
+                //Product Name
+                Text(cartItem.name ?? "")
+                    .font(.headline)
+                    .lineLimit(2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                //Product Price
+                Text("\(cartItem.price)")
+                    .font(.subheadline)
+                    .lineLimit(1)
+                    .foregroundColor(.gray)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }//: VStack
             
             Spacer()
             
-            HStack {
-                Button(action: onDecrease) {
-                    Image(systemName: "minus.circle")
-                }
-                .buttonStyle(.borderless)
-                
-                Text("\(cartItem.quantity)")
-                    .frame(minWidth: 24)
-                
-                Button(action: onIncrease) {
-                    Image(systemName: "plus.circle")
-                }
-                .buttonStyle(.borderless)
-            }
+            //Minus | Plus Component
+            VStack {
+                Spacer()
+                HStack {
+                    
+                    Button(action: onDecrease) {
+                        Image(systemName: "minus.circle")
+                    }
+                    .buttonStyle(.borderless)
+                    
+                    Text("\(cartItem.quantity)")
+                        .frame(minWidth: 24)
+                    
+                    Button(action: onIncrease) {
+                        Image(systemName: "plus.circle")
+                    }
+                    .buttonStyle(.borderless)
+                }//: HStack
+                .padding(.trailing, 4.0)
+                .padding(.bottom, 4.0)
+            }//: VStack
+        
         }
         .padding(.vertical, 4)
     }
