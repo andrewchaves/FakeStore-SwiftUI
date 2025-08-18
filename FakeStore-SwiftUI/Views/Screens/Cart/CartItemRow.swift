@@ -71,16 +71,24 @@ struct CartItemRow: View {
                 .padding(.trailing, 4.0)
                 .padding(.bottom, 4.0)
             }//: VStack
-        
+            
         }
         .padding(.vertical, 4)
     }
 }
 
 #Preview {
-    //TODO: - Refactor preview
-    //    let cartItemVM = CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository)
-    //    if cartItemVM.cartItems.count > 0 {
-    //        CartItemRow(cartItem: cartItemVM.cartItems[0])
-    //    }
+    let cartItemsViewModel = CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository)
+    if cartItemsViewModel.cartItems.count > 0 {
+        CartItemRow(
+            cartItem: cartItemsViewModel.cartItems[0],
+            onIncrease: {
+                cartItemsViewModel.increaseCartItemQuantity(for: cartItemsViewModel.cartItems[0].id)
+                cartItemsViewModel.fetchCartItems()},
+            onDecrease: {
+                cartItemsViewModel.decreaseCartItemQuantity(for: cartItemsViewModel.cartItems[0].id)
+                cartItemsViewModel.fetchCartItems()
+            }
+        )
+    }
 }
