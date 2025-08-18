@@ -9,7 +9,6 @@ import SwiftUI
 import FakeStoreCore
 
 struct HomeView: View {
-    //Properties
     @StateObject private var productsViewModel = ProductVM()
     @StateObject private var categoriesViewModel = CategorytVM()
     
@@ -19,7 +18,7 @@ struct HomeView: View {
                 NavigationLink (destination: ProductDetailsView(product: product, cartItemViewModel: CartItemVM(cartItemRepository: AppContainer.shared.cartItemRepository))){
                     ProductRowView(product: product)
                 }
-            }
+            }//: List
             .listStyle(.plain)
             .navigationTitle("FakeStore")
             .toolbar {
@@ -53,10 +52,10 @@ struct HomeView: View {
                     } label: {
                         Image(systemName: "line.3.horizontal")
                             .foregroundColor(.black)
-                    }
+                    }//: Menu
                 }//: ToolbarItem
             }
-        }
+        }//: NavigationView
         .onAppear {
             productsViewModel.fetchProducts()
             categoriesViewModel.fetchCategories()

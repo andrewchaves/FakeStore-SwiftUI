@@ -72,7 +72,7 @@ struct CartItemRow: View {
                 .padding(.bottom, 4.0)
             }//: VStack
             
-        }
+        }//: HStack
         .padding(.vertical, 4)
     }
 }

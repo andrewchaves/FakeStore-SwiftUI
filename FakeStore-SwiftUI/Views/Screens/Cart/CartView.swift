@@ -30,10 +30,10 @@ struct CartView<ViewModel: CartItemViewModelProtocol & ObservableObject>: View {
                         }
                     )
                 }
-            }
+            }// List
             .listStyle(.plain)
             .navigationTitle("FakeStore")
-        }
+        }//: NavigationList
         .onAppear {
             cartItemsViewModel.fetchCartItems()
         }

@@ -26,17 +26,19 @@ struct ProductRowView: View {
                     ProgressView()
                         .frame(width: 60.0, height: 60.0)
                 }
-            )
+            )//: AsyncImage
             
             VStack (alignment: .leading, spacing: 5.0){
+                //Product Title
                 Text(product.title)
                     .font(.headline)
                     .lineLimit(2)
+                //Product Price
                 Text(product.price)
                     .font(.subheadline)
                     .foregroundColor(.gray)
-            }
-        }
+            }//: VStack
+        }//: HStack
         .padding(.vertical, 4.0)
     }
 }
