@@ -30,6 +30,7 @@ struct CartView<ViewModel: CartItemViewModelProtocol & ObservableObject>: View {
                         }
                     )
                 }
+                .onDelete(perform: deleteItem)
             }// List
             .listStyle(.plain)
             .navigationTitle("FakeStore")
@@ -37,6 +38,15 @@ struct CartView<ViewModel: CartItemViewModelProtocol & ObservableObject>: View {
         .onAppear {
             cartItemsViewModel.fetchCartItems()
         }
+    }
+    
+    //MARK: - Actions
+    private func deleteItem(at offsets: IndexSet) {
+        for index in offsets {
+            let item = cartItemsViewModel.cartItems[index]
+            cartItemsViewModel.removeCartItem(id: item.id)
+        }
+        cartItemsViewModel.fetchCartItems()
     }
 }
 
